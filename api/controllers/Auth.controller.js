@@ -35,12 +35,12 @@ export const Login = async (req, res, next) => {
         const { email, password } = req.body
         const user = await User.findOne({ email })
         if (!user) {
-            next(handleError(404, 'Invalid login credentials1.'))
+            next(handleError(404, 'Invalid login credentials.'))
         }
         const hashedPassword = user.password
-
+        const comparePassword = await bcryptjs.compare(password, hashedPassword)
         if (!comparePassword) {
-            next(handleError(404, 'Invalid login credentials2.'))
+            next(handleError(404, 'Invalid login credentials.'))
         }
 
         const token = jwt.sign({
@@ -110,6 +110,27 @@ export const GoogleLogin = async (req, res, next) => {
             success: true,
             user: newUser,
             message: 'Login successful.'
+        })
+
+    } catch (error) {
+        next(handleError(500, error.message))
+    }
+}
+
+
+export const Logout = async (req, res, next) => {
+    try {
+
+        res.clearCookie('access_token', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+            path: '/'
+        })
+
+        res.status(200).json({
+            success: true,
+            message: 'Logout successful.'
         })
 
     } catch (error) {
