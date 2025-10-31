@@ -37,7 +37,7 @@ const GoogleLogin = () => {
             navigate(RouteIndex)
             showToast('success', data.message)
         } catch (error) {
-            showToast('error', error.message)
+            //showToast('error', error.message)
         }
     }
 
