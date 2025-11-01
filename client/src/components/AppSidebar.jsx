@@ -18,6 +18,7 @@ import { FaRegCommentDots } from "react-icons/fa6";
 import { FaRegUser } from "react-icons/fa";
 import { GoDot } from "react-icons/go";
 import Footer from "./Footer";
+import { RouteCategoryDetails } from "@/helpers/RouteName";
 
 const AppSidebar = () => {
   return (
@@ -37,7 +38,7 @@ const AppSidebar = () => {
                 <SidebarMenuItem>
                     <SidebarMenuButton>
                       <BiCategoryAlt />
-                        <Link to="">Danh mục</Link>
+                        <Link to={RouteCategoryDetails}>Danh mục</Link>
                     </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
