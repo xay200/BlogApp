@@ -18,9 +18,20 @@ import { FaRegCommentDots } from "react-icons/fa6";
 import { FaRegUser } from "react-icons/fa";
 import { GoDot } from "react-icons/go";
 import Footer from "./Footer";
-import { RouteBlog, RouteCategoryDetails } from "@/helpers/RouteName";
+import { RouteBlog, RouteBlogByCategory, RouteCategoryDetails } from "@/helpers/RouteName";
+import { useFetch } from "@/hooks/useFetch";
+import { getEnv } from "@/helpers/getEnv";
+import { useSelector } from "react-redux";
+
 
 const AppSidebar = () => {
+
+  const user = useSelector(state => state.user)
+  const { data: categoryData } = useFetch(`${getEnv('VITE_API_BASE_URL')}/category/all-category`, {
+    method: 'get',
+    credentials: 'include'
+  })
+
   return (
     <Sidebar>
       <SidebarHeader>
@@ -28,56 +39,58 @@ const AppSidebar = () => {
       </SidebarHeader>
       <SidebarContent className="bg-white">
         <SidebarGroup />
-            <SidebarMenu>
-                <SidebarMenuItem>
-                    <SidebarMenuButton>
-                      <FiHome />
-                        <Link to="">Trang chủ</Link>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                    <SidebarMenuButton>
-                      <BiCategoryAlt />
-                        <Link to={RouteCategoryDetails}>Danh mục</Link>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                    <SidebarMenuButton>
-                      <TbBrandBlogger />
-                        <Link to={RouteBlog}>Blog</Link>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                    <SidebarMenuButton>
-                      <FaRegCommentDots />
-                        <Link to="">Bình luận</Link>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                    <SidebarMenuButton>
-                      <FaRegUser />
-                        <Link to="">Người dùng</Link>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>
-            </SidebarMenu>            
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton>
+              <FiHome />
+              <Link to="">Trang chủ</Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton>
+              <BiCategoryAlt />
+              <Link to={RouteCategoryDetails}>Danh mục</Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton>
+              <TbBrandBlogger />
+              <Link to={RouteBlog}>Blog</Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton>
+              <FaRegCommentDots />
+              <Link to="">Bình luận</Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton>
+              <FaRegUser />
+              <Link to="">Người dùng</Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
         <SidebarGroup />
 
 
         <SidebarGroup />
-         <SidebarGroupLabel>
-            Danh mục
-         </SidebarGroupLabel>
-            <SidebarMenu>
-                <SidebarMenuItem>
-                    <SidebarMenuButton>
-                      <GoDot />
-                        <Link to="">Category item</Link>
-                    </SidebarMenuButton>
-                </SidebarMenuItem>              
-            </SidebarMenu>            
+        <SidebarGroupLabel>
+          Danh mục
+        </SidebarGroupLabel>
+        <SidebarMenu>
+          {categoryData && categoryData.category.length > 0
+            && categoryData.category.map(category => <SidebarMenuItem key={category._id}>
+              <SidebarMenuButton>
+                <GoDot />
+                <Link to={RouteBlogByCategory(category.slug)}>{category.name}</Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>)
+          }
+        </SidebarMenu>
         <SidebarGroup />
       </SidebarContent>
-      
+
     </Sidebar>
   )
 }
