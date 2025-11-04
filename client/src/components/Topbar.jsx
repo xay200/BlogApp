@@ -4,15 +4,15 @@ import { Button } from './ui/button'
 import { Link, useNavigate } from 'react-router-dom'
 import { MdLogin } from "react-icons/md";
 import SearchBox from './SearchBox';
-import { RouteIndex, RouteProfile, RouteSignIn } from '@/helpers/RouteName';
+import { RouteBlogAdd, RouteIndex, RouteProfile, RouteSignIn } from '@/helpers/RouteName';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import usericon from '@/assets/images/user.png'
@@ -53,7 +53,9 @@ const Topbar = () => {
   return (
     <div className='flex justify-between items-center h-16 fixed w-full z-20 bg-white px-5 border-b'>
       <div>
-        <img src={logo} />
+        <Link to={RouteIndex}>
+          <img src={logo} className='md:w-auto w-48' />
+        </Link>
       </div>
       <div className='w-[500px]'>
         <SearchBox />
@@ -87,7 +89,7 @@ const Topbar = () => {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild className="cursor-pointer">
-                <Link to="">
+                <Link to={RouteBlogAdd}>
                   <FaPlus />
                   Tạo blog
                 </Link>
@@ -96,8 +98,8 @@ const Topbar = () => {
               <DropdownMenuSeparator />
 
               <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
-                  <IoLogOutOutline color='red'/>
-                  Đăng xuất
+                <IoLogOutOutline color='red' />
+                Đăng xuất
               </DropdownMenuItem>
 
             </DropdownMenuContent>

@@ -18,7 +18,7 @@ import { FaRegCommentDots } from "react-icons/fa6";
 import { FaRegUser } from "react-icons/fa";
 import { GoDot } from "react-icons/go";
 import Footer from "./Footer";
-import { RouteBlog, RouteBlogByCategory, RouteCategoryDetails } from "@/helpers/RouteName";
+import { RouteBlog, RouteBlogByCategory, RouteCategoryDetails, RouteCommentDetails, RouteIndex, RouteUser } from "@/helpers/RouteName";
 import { useFetch } from "@/hooks/useFetch";
 import { getEnv } from "@/helpers/getEnv";
 import { useSelector } from "react-redux";
@@ -43,7 +43,7 @@ const AppSidebar = () => {
           <SidebarMenuItem>
             <SidebarMenuButton>
               <FiHome />
-              <Link to="">Trang chủ</Link>
+              <Link to={RouteIndex}>Trang chủ</Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
@@ -61,13 +61,13 @@ const AppSidebar = () => {
           <SidebarMenuItem>
             <SidebarMenuButton>
               <FaRegCommentDots />
-              <Link to="">Bình luận</Link>
+              <Link to={RouteCommentDetails}>Bình luận</Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton>
               <FaRegUser />
-              <Link to="">Người dùng</Link>
+              <Link to={RouteUser}>Người dùng</Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

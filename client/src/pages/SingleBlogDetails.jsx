@@ -13,6 +13,7 @@ import moment from 'moment'
 import CommentCount from '@/components/CommentCount'
 import LikeCount from '@/components/LikeCount'
 import RelatedBlog from '@/components/RelatedBlog'
+import usericon from '@/assets/images/user.png'
 
 
 const SingleBlogDetails = () => {
@@ -34,10 +35,10 @@ const SingleBlogDetails = () => {
                         <div className='flex justify-between items-center'>
                             <div className='flex justify-between items-center gap-5'>
                                 <Avatar>
-                                    <AvatarImage src={data.blog.author.avatar} />
+                                    <AvatarImage src={data.blog.author?.avatar || usericon} />
                                 </Avatar>
                                 <div>
-                                    <p className='font-bold'>{data.blog.author.name}</p>
+                                    <p className='font-bold'>{data.blog.author?.name || 'Tác giả đã bị xóa'}</p>
                                     <p>Ngày tạo: {moment(data.blog.createdAt).format('DD-MM-YYYY')}</p>
                                 </div>
                                 

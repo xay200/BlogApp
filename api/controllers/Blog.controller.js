@@ -1,4 +1,5 @@
 import { handleError } from "../helpers/handleError.js";
+import { createFlexibleVietnamesePattern } from "../helpers/vietnameseHelper.js";
 import cloudinary from "../config/cloudinary.js";
 import Blog from "../models/blog.model.js";
 import Category from "../models/category.model.js";
@@ -188,6 +189,22 @@ export const getBlogByCategory = async (req, res, next) => {
 
 export const search = async (req, res, next) => {
   try {
+    const { q } = req.query;
+
+    if (!q) {
+      return res.status(400).json({ message: "Missing keywords" });
+    }
+    const flexiblePattern = createFlexibleVietnamesePattern(q);
+    const blog = await Blog.find({
+      title: { $regex: flexiblePattern, $options: "i" },
+    })
+      .populate("author", "name avatar role")
+      .populate("category", "name slug")
+      .lean()
+      .exec();
+    res.status(200).json({
+      blog,
+    });
   } catch (error) {
     next(handleError(500, error.message));
   }
