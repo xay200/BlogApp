@@ -13,10 +13,11 @@ import { getEnv } from '@/helpers/getEnv'
 import { useDispatch } from 'react-redux'
 import { setUser } from '@/redux/user/user.slice'
 import GoogleLogin from '@/components/GoogleLogin'
+import logo from '@/assets/images/logo-white.png'
 
 const SignIn = () => {
 
-    const dispath = useDispatch()    
+    const dispath = useDispatch()
 
     const navigate = useNavigate()
 
@@ -56,8 +57,13 @@ const SignIn = () => {
     return (
         <div className='flex justify-center items-center h-screen w-screen'>
             <Card className="w-[400px] p-5">
+                <div className='flex justify-center items-center mb-2'>
+                    <Link to={RouteIndex}>
+                        <img src={logo} />
+                    </Link>
+                </div>
+
                 <h1 className='text-2xl font-bold text-center mb-5'>Đăng nhập</h1>
-                
                 <div className=''>
                     <GoogleLogin />
                     <div className='border my-5 flex justify-center items-center'>

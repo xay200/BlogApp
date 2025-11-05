@@ -46,30 +46,48 @@ const AppSidebar = () => {
               <Link to={RouteIndex}>Trang chủ</Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton>
-              <BiCategoryAlt />
-              <Link to={RouteCategoryDetails}>Danh mục</Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton>
-              <TbBrandBlogger />
-              <Link to={RouteBlog}>Blog</Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton>
-              <FaRegCommentDots />
-              <Link to={RouteCommentDetails}>Bình luận</Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton>
-              <FaRegUser />
-              <Link to={RouteUser}>Người dùng</Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
+
+          {user && user.isLoggedIn
+            ?
+            <>
+              <SidebarMenuItem>
+                <SidebarMenuButton>
+                  <TbBrandBlogger />
+                  <Link to={RouteBlog}>Blog</Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton>
+                  <FaRegCommentDots />
+                  <Link to={RouteCommentDetails}>Bình luận</Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </>
+            :
+            <></>
+          }
+
+          {user && user.isLoggedIn && user.user.role === 'admin'
+            ?
+            <>
+              <SidebarMenuItem>
+                <SidebarMenuButton>
+                  <BiCategoryAlt />
+                  <Link to={RouteCategoryDetails}>Danh mục</Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton>
+                  <FaRegUser />
+                  <Link to={RouteUser}>Người dùng</Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </>
+            :
+            <></>
+          }
+
+
         </SidebarMenu>
         <SidebarGroup />
 
