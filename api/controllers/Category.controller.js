@@ -1,6 +1,5 @@
 import { handleError } from "../helpers/handleError.js";
 import Category from "../models/category.model.js";
-Category;
 
 export const addCategory = async (req, res, next) => {
   try {
@@ -47,6 +46,7 @@ export const updateCategory = async (req, res, next) => {
   try {
     const { name, slug } = req.body;
     const { categoryid } = req.params;
+    console.log("Hello")
     const category = await Category.findByIdAndUpdate(
       categoryid,
       {
@@ -56,14 +56,16 @@ export const updateCategory = async (req, res, next) => {
       { new: true }
     );
 
-    await category.save();
-
     res.status(200).json({
       success: true,
-      message: "Category added successfully.",
+      message: "Category updated successfully.",
       category,
     });
   } catch (error) {
+    console.error("--- LỖI UPDATE CATEGORY ---");
+    console.log("Hello")
+    console.error(error); // <-- In ra toàn bộ object lỗi
+    console.error("-----------------------------");
     next(handleError(500, error.message));
   }
 };
