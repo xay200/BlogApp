@@ -55,7 +55,7 @@ npm run dev
 ### 4.4 Hướng dẫn import database
 ### Yêu cầu
 - MongoDB Database Tools
-- MongoDB server (local hoặc Atlas)
+- MongoDB server
 ### Restore lại database
 Chạy lệnh sau
 - Restore toàn bộ database
