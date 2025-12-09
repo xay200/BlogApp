@@ -223,15 +223,29 @@ export const search = async (req, res, next) => {
 
 export const getAllBlogs = async (req, res, next) => {
   try {
-    const user = req.user;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 9;
+    const startIndex = (page - 1) * limit;
+
+    const total = await Blog.countDocuments();
+
     const blog = await Blog.find()
       .populate("author", "name avatar role")
       .populate("category", "name slug")
       .sort({ createdAt: -1 })
+      .limit(limit)      
+      .skip(startIndex)  
       .lean()
       .exec();
+
     res.status(200).json({
       blog,
+      pagination: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit)
+      }
     });
   } catch (error) {
     next(handleError(500, error.message));
