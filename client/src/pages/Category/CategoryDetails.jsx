@@ -27,8 +27,8 @@ const CategoryDetails = () => {
         credentials: 'include'
     }, [refreshData])
 
-    const handleDelete = (id) => {
-        const response = deleteData(`${getEnv('VITE_API_BASE_URL')}/category/delete/${id}`)
+    const handleDelete = async (id) => {
+        const response = await deleteData(`${getEnv('VITE_API_BASE_URL')}/category/delete/${id}`)
         if (response) {
             setRefreshData(!refreshData)
             showToast('success', 'Data deleted.')
